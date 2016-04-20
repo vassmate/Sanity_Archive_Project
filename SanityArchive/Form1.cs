@@ -24,10 +24,8 @@ namespace SanityArchive
 
         private void propertiesButton_Click(object sender, EventArgs e)
         {
-            SanityArchiveForm s = new SanityArchiveForm();
-            s.Show();
-            //PropertiesForm propertiesForm = new PropertiesForm();
-            //propertiesForm.Show();
+           PropertiesForm propertiesForm = new PropertiesForm();
+           propertiesForm.Show();
         }
     }
 }
