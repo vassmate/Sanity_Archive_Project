@@ -187,6 +187,7 @@
             this.propertiesButton.TabIndex = 18;
             this.propertiesButton.Text = "Properties";
             this.propertiesButton.UseVisualStyleBackColor = true;
+            this.propertiesButton.Click += new System.EventHandler(this.propertiesButton_Click);
             // 
             // SanityArchiveForm
             // 
