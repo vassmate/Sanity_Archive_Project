@@ -71,6 +71,7 @@
             this.backButton.TabIndex = 5;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // calculateButton
             // 
@@ -106,6 +107,7 @@
             this.contentListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.contentListBox.Size = new System.Drawing.Size(776, 199);
             this.contentListBox.TabIndex = 9;
+            this.contentListBox.DoubleClick += new System.EventHandler(this.contentListBox_DoubleClick);
             // 
             // copyButton
             // 
