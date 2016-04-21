@@ -48,37 +48,37 @@ namespace SanityArchive
         }
 
 
-        static void Main(string[] args)
-        {
-            string filePath = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentence";
-            string filePath4 = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\helloka.txt";
-            string filePath2 = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentences másolata.txt";
-            string filePath3 = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentences másolata másolata.txt";
+        //static void Main(string[] args)
+        //{
+        //    string filePath = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentence";
+        //    string filePath4 = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\helloka.txt";
+        //    string filePath2 = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentences másolata.txt";
+        //    string filePath3 = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentences másolata másolata.txt";
 
-            string copyto = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\copyto";
-            string moveto = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\moveto";
+        //    string copyto = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\copyto";
+        //    string moveto = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\moveto";
 
 
-            List<FileSystemInfo> listFiles = new List<FileSystemInfo>()
-            {
-                new FileInfo(filePath),
-                new FileInfo(filePath2),
-                new FileInfo(filePath3),
-                new FileInfo(filePath4)
-            };
+        //    List<FileSystemInfo> listFiles = new List<FileSystemInfo>()
+        //    {
+        //        new FileInfo(filePath),
+        //        new FileInfo(filePath2),
+        //        new FileInfo(filePath3),
+        //        new FileInfo(filePath4)
+        //    };
 
-            FileHandler fh = new FileHandler(listFiles);
-            try
-            {
-                fh.CopyFilesTo(copyto);
-                fh.MoveFilesTo(moveto);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            Console.ReadLine();
-        }
+        //    FileHandler fh = new FileHandler(listFiles);
+        //    try
+        //    {
+        //        fh.CopyFilesTo(copyto);
+        //        fh.MoveFilesTo(moveto);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex);
+        //    }
+        //    Console.ReadLine();
+        //}
     }
 
     public class DirectoryIsChosenException : Exception
