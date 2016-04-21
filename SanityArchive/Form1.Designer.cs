@@ -218,6 +218,7 @@
             this.MaximumSize = new System.Drawing.Size(856, 438);
             this.MinimumSize = new System.Drawing.Size(856, 438);
             this.Name = "SanityArchiveForm";
+            this.Text = "Sanity Archive";
             this.Load += new System.EventHandler(this.SanityArchiveForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
