@@ -19,7 +19,6 @@ namespace SanityArchive
 
         private void SanityArchiveForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void propertiesButton_Click(object sender, EventArgs e)
