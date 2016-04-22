@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DeCompressor.cs" />
     <Compile Include="EnDecrypter.cs" />
+    <Compile Include="FileBrowser.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

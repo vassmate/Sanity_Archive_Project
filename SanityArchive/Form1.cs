@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -13,6 +7,11 @@ namespace SanityArchive
 {
     public partial class SanityArchiveForm : Form
     {
+        private static readonly FileBrowser fileBrowser = new FileBrowser();
+        private readonly DriveInfo[] availableDrives = fileBrowser.GetAvailableDrives();
+        private int currentSelectedIndex = 0;
+        private string[] previousSelectedItems = new string[100];
+
         public SanityArchiveForm()
         {
             InitializeComponent();
@@ -24,6 +23,10 @@ namespace SanityArchive
 			pathTextBox.Text = @"C:\";
 			saveButton.Enabled = false;
 			cancelButton.Enabled = false;
+
+            previousSelectedItems[currentSelectedIndex] = pathTextBox.Text;
+            fileBrowser.SetDrivePath(pathTextBox.Text);
+            AddItemsToList();
         }
 
 
@@ -43,8 +46,6 @@ namespace SanityArchive
 
 			saveButton.Enabled = true;
 			cancelButton.Enabled = true;
-
-
 		}
 
 
@@ -57,7 +58,6 @@ namespace SanityArchive
 
 			saveButton.Enabled = true;
 			cancelButton.Enabled = true;
-
 		}
 
 
@@ -85,5 +85,51 @@ namespace SanityArchive
 			saveButton.Enabled = false;
 			cancelButton.Enabled = false;
 		}
-	}
+
+        private void contentListBox_DoubleClick(object sender, EventArgs e)
+        {
+            string selectedPath = contentListBox.SelectedItem != null ? contentListBox.SelectedItem.ToString() : "";
+
+            if (Directory.Exists(selectedPath))
+            {
+                fileBrowser.SetDrivePath(selectedPath);
+                pathTextBox.Text = fileBrowser.GetDrivePath();
+
+                contentListBox.Items.Clear();
+                AddItemsToList();
+
+                currentSelectedIndex++;
+                previousSelectedItems[currentSelectedIndex] = selectedPath;
+            }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            if (currentSelectedIndex > 0)
+            {
+                currentSelectedIndex--;
+
+                fileBrowser.SetDrivePath(previousSelectedItems[currentSelectedIndex]);
+                pathTextBox.Text = fileBrowser.GetDrivePath();
+
+                contentListBox.Items.Clear();
+                AddItemsToList();
+            }
+        }
+
+        private void AddItemsToList()
+        {
+            FileInfo[] files = fileBrowser.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                contentListBox.Items.Add(file.Name);
+            }
+
+            DirectoryInfo[] directories = fileBrowser.GetDirectories();
+            foreach (DirectoryInfo directory in directories)
+            {
+                contentListBox.Items.Add(directory.FullName);
+            }
+        }
+    }
 }
