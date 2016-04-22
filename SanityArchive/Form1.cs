@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
@@ -12,7 +14,14 @@ namespace SanityArchive
         private int currentSelectedIndex = 0;
         private string[] previousSelectedItems = new string[100];
 
-        public SanityArchiveForm()
+		List<FileSystemInfo> selectedItems;
+		FileHandler fileHandler;
+		bool toCopy;
+		bool toMove;
+
+
+
+		public SanityArchiveForm()
         {
             InitializeComponent();
         }
@@ -41,28 +50,60 @@ namespace SanityArchive
 		{
 			copyButton.Enabled = false;
 			copyButton.BackColor = Color.Aqua;
+			toCopy = true;
 
 			moveButton.Enabled = false;
+			toMove = false;
 
 			saveButton.Enabled = true;
 			cancelButton.Enabled = true;
+
+			selectedItems = new List<FileSystemInfo>();
+			foreach (var item in contentListBox.SelectedItems)
+			{
+				selectedItems.Add(new FileInfo(item.ToString()));
+			}
+
+			fileHandler = new FileHandler(selectedItems);
 		}
 
 
 		private void moveButton_Click(object sender, EventArgs e)
 		{
 			copyButton.Enabled = false;
+			toMove = true;
 
 			moveButton.Enabled = false;
 			moveButton.BackColor = Color.Aqua;
+			toCopy = false;
 
 			saveButton.Enabled = true;
 			cancelButton.Enabled = true;
+
+			selectedItems = new List<FileSystemInfo>();
+			foreach (var item in contentListBox.SelectedItems)
+			{
+				selectedItems.Add(new FileInfo(item.ToString()));
+			}
+
+			fileHandler = new FileHandler(selectedItems);
 		}
 
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
+			if (toCopy)
+			{
+				try
+				{
+					fileHandler.CopyFilesTo(previousSelectedItems[currentSelectedIndex]);
+				}
+				catch (DirectoryIsChosenException ex)
+				{
+					MessageBox.Show(ex.ToString(), "Warning!");
+				}
+			}
+
 			copyButton.Enabled = true;
 			copyButton.BackColor = SystemColors.Control;
 
@@ -76,6 +117,11 @@ namespace SanityArchive
 
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
+			if (toMove)
+			{
+				fileHandler.CopyFilesTo(previousSelectedItems[currentSelectedIndex]);
+			}
+
 			copyButton.Enabled = true;
 			copyButton.BackColor = SystemColors.Control;
 
