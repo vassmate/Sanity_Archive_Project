@@ -13,9 +13,15 @@ namespace SanityArchive
         public List<FileSystemInfo> FilesList { get; set; }
 
 
-        public FileHandler()
-        {
-        }
+		public FileHandler(List<string> files)
+		{
+			FilesList = new List<FileSystemInfo>();
+			foreach (string filePath in files)
+			{
+				FileInfo file = new FileInfo(filePath);
+				FilesList.Add(file);
+			}
+		}
 
 
         public FileHandler(List<FileSystemInfo> files)
