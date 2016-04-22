@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
-using System.Text;
 
 namespace SanityArchive
 {
@@ -60,9 +59,8 @@ namespace SanityArchive
 			selectedItems = new List<FileSystemInfo>();
 			foreach (var item in contentListBox.SelectedItems)
 			{
-				selectedItems.Add(new FileInfo(item.ToString()));
+				selectedItems.Add(new FileInfo(Path.Combine(fileBrowser.GetDrivePath(), item.ToString())));
 			}
-
 			fileHandler = new FileHandler(selectedItems);
 		}
 
@@ -82,9 +80,8 @@ namespace SanityArchive
 			selectedItems = new List<FileSystemInfo>();
 			foreach (var item in contentListBox.SelectedItems)
 			{
-				selectedItems.Add(new FileInfo(item.ToString()));
+				selectedItems.Add(new FileInfo(Path.Combine(fileBrowser.GetDrivePath(), item.ToString())));
 			}
-
 			fileHandler = new FileHandler(selectedItems);
 		}
 
@@ -106,7 +103,7 @@ namespace SanityArchive
 			{
 				try
 				{
-					fileHandler.CopyFilesTo(previousSelectedItems[currentSelectedIndex]);
+					fileHandler.MoveFilesTo(previousSelectedItems[currentSelectedIndex]);
 				}
 				catch (DirectoryIsChosenException ex)
 				{
