@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 
 namespace SanityArchive
 {
@@ -137,8 +138,9 @@ namespace SanityArchive
         private void contentListBox_DoubleClick(object sender, EventArgs e)
         {
             string selectedItem = contentListBox.SelectedItem != null ? contentListBox.SelectedItem.ToString() : "";
+			string filePath = pathTextBox.Text + "\\" + selectedItem;
 
-            if (Directory.Exists(selectedItem))
+			if (Directory.Exists(selectedItem))
             {
                 fileBrowser.SetDrivePath(selectedItem);
                 pathTextBox.Text = fileBrowser.GetDrivePath();
@@ -149,7 +151,19 @@ namespace SanityArchive
                 currentSelectedIndex++;
                 previousSelectedItems[currentSelectedIndex] = selectedItem;
             }
-        }
+
+			if (Path.GetExtension(filePath) == ".txt")
+			{
+				string[] lines = File.ReadAllLines(filePath);
+				StringBuilder sb = new StringBuilder();
+				foreach (string line in lines)
+				{
+					sb.Append("\n" + line);
+				}
+				string text = sb.ToString();
+				MessageBox.Show(text, "Content of selected '.txt' file:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+		}
 
         private void backButton_Click(object sender, EventArgs e)
         {
@@ -179,5 +193,5 @@ namespace SanityArchive
                 contentListBox.Items.Add(file.Name);
             }
         }
-    }
+	}
 }
