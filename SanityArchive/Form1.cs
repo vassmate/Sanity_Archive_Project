@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 
 namespace SanityArchive
 {
@@ -139,18 +139,18 @@ namespace SanityArchive
 
         private void contentListBox_DoubleClick(object sender, EventArgs e)
         {
-            string selectedPath = contentListBox.SelectedItem != null ? contentListBox.SelectedItem.ToString() : "";
+            string selectedItem = contentListBox.SelectedItem != null ? contentListBox.SelectedItem.ToString() : "";
 
-            if (Directory.Exists(selectedPath))
+            if (Directory.Exists(selectedItem))
             {
-                fileBrowser.SetDrivePath(selectedPath);
+                fileBrowser.SetDrivePath(selectedItem);
                 pathTextBox.Text = fileBrowser.GetDrivePath();
 
                 contentListBox.Items.Clear();
                 AddItemsToList();
 
                 currentSelectedIndex++;
-                previousSelectedItems[currentSelectedIndex] = selectedPath;
+                previousSelectedItems[currentSelectedIndex] = selectedItem;
             }
         }
 
@@ -170,16 +170,16 @@ namespace SanityArchive
 
         private void AddItemsToList()
         {
-            FileInfo[] files = fileBrowser.GetFiles();
-            foreach (FileInfo file in files)
-            {
-                contentListBox.Items.Add(file.Name);
-            }
-
             DirectoryInfo[] directories = fileBrowser.GetDirectories();
             foreach (DirectoryInfo directory in directories)
             {
                 contentListBox.Items.Add(directory.FullName);
+            }
+
+            FileInfo[] files = fileBrowser.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                contentListBox.Items.Add(file.Name);
             }
         }
     }
