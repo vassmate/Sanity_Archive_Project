@@ -48,19 +48,15 @@ namespace SanityArchive
         public FileInfo[] GetFiles()
         {
             files = new FileInfo[0];
-            directories = GetDirectories();
-
+            DirectoryInfo dir = new DirectoryInfo(drivePath);
             try
             {
-                foreach (DirectoryInfo dir in directories)
-                {
-                    int numberOfFiles = dir.GetFiles().Length;
+                int numberOfFiles = dir.GetFiles().Length;
 
-                    if (numberOfFiles > 0)
-                    {
-                        files = new FileInfo[numberOfFiles];
-                        files = dir.GetFiles();
-                    }
+                if (numberOfFiles > 0)
+                {
+                    files = new FileInfo[numberOfFiles];
+                    files = dir.GetFiles();
                 }
             }
             catch (Exception e)
