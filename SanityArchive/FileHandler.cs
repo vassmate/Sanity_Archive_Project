@@ -34,7 +34,7 @@ namespace SanityArchive
         {
             foreach (FileSystemInfo item in FilesList)
             {
-                if (item.Attributes == FileAttributes.Directory)
+                if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                     throw new DirectoryIsChosenException("You can not move directory");
                 FileInfo file = (FileInfo)item;
                 file.MoveTo(Path.Combine(destDir, file.Name));
@@ -46,7 +46,7 @@ namespace SanityArchive
         {
             foreach (FileSystemInfo item in FilesList)
             {
-                if (item.Attributes == FileAttributes.Directory)
+                if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                     throw new DirectoryIsChosenException("You can not copy directory");
                 FileInfo file = (FileInfo)item;
                 file.CopyTo(Path.Combine(destDir, file.Name));

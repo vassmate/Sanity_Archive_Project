@@ -20,7 +20,6 @@ namespace SanityArchive
 		bool toMove;
 
 
-
 		public SanityArchiveForm()
         {
             InitializeComponent();
@@ -103,6 +102,17 @@ namespace SanityArchive
 					MessageBox.Show(ex.ToString(), "Warning!");
 				}
 			}
+			else if (toMove)
+			{
+				try
+				{
+					fileHandler.CopyFilesTo(previousSelectedItems[currentSelectedIndex]);
+				}
+				catch (DirectoryIsChosenException ex)
+				{
+					MessageBox.Show(ex.ToString(), "Warning!");
+				}
+			}
 
 			copyButton.Enabled = true;
 			copyButton.BackColor = SystemColors.Control;
@@ -117,11 +127,6 @@ namespace SanityArchive
 
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
-			if (toMove)
-			{
-				fileHandler.CopyFilesTo(previousSelectedItems[currentSelectedIndex]);
-			}
-
 			copyButton.Enabled = true;
 			copyButton.BackColor = SystemColors.Control;
 
