@@ -44,11 +44,13 @@
             this.fileModifyingStructurallyLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.propertiesButton = new System.Windows.Forms.Button();
+            this.driveLabel = new System.Windows.Forms.Label();
+            this.drivesBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // pathTextBox
             // 
-            this.pathTextBox.Location = new System.Drawing.Point(60, 23);
+            this.pathTextBox.Location = new System.Drawing.Point(64, 47);
             this.pathTextBox.Name = "pathTextBox";
             this.pathTextBox.ReadOnly = true;
             this.pathTextBox.Size = new System.Drawing.Size(312, 20);
@@ -57,7 +59,7 @@
             // pathLabel
             // 
             this.pathLabel.AutoSize = true;
-            this.pathLabel.Location = new System.Drawing.Point(25, 26);
+            this.pathLabel.Location = new System.Drawing.Point(25, 50);
             this.pathLabel.Name = "pathLabel";
             this.pathLabel.Size = new System.Drawing.Size(32, 13);
             this.pathLabel.TabIndex = 4;
@@ -65,7 +67,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(388, 21);
+            this.backButton.Location = new System.Drawing.Point(391, 45);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(60, 23);
             this.backButton.TabIndex = 5;
@@ -196,11 +198,31 @@
             this.propertiesButton.UseVisualStyleBackColor = true;
             this.propertiesButton.Click += new System.EventHandler(this.propertiesButton_Click);
             // 
+            // driveLabel
+            // 
+            this.driveLabel.AutoSize = true;
+            this.driveLabel.Location = new System.Drawing.Point(25, 21);
+            this.driveLabel.Name = "driveLabel";
+            this.driveLabel.Size = new System.Drawing.Size(35, 13);
+            this.driveLabel.TabIndex = 19;
+            this.driveLabel.Text = "Drive:";
+            // 
+            // drivesBox
+            // 
+            this.drivesBox.FormattingEnabled = true;
+            this.drivesBox.Location = new System.Drawing.Point(64, 18);
+            this.drivesBox.Name = "drivesBox";
+            this.drivesBox.Size = new System.Drawing.Size(312, 21);
+            this.drivesBox.TabIndex = 20;
+            this.drivesBox.SelectedIndexChanged += new System.EventHandler(this.drivesBox_SelectedIndexChanged);
+            // 
             // SanityArchiveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 399);
+            this.Controls.Add(this.drivesBox);
+            this.Controls.Add(this.driveLabel);
             this.Controls.Add(this.propertiesButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.fileModifyingStructurallyLabel);
@@ -245,6 +267,8 @@
         private System.Windows.Forms.Label fileModifyingStructurallyLabel;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button propertiesButton;
+        private System.Windows.Forms.Label driveLabel;
+        private System.Windows.Forms.ComboBox drivesBox;
     }
 }
 

@@ -11,8 +11,6 @@ namespace SanityArchive
     {
         private static readonly FileBrowser fileBrowser = new FileBrowser();
         private readonly DriveInfo[] availableDrives = fileBrowser.GetAvailableDrives();
-        private int currentSelectedIndex = 0;
-        private string[] previousSelectedItems = new string[100];
 
 		List<FileSystemInfo> selectedItems;
 		FileHandler fileHandler;
@@ -28,12 +26,17 @@ namespace SanityArchive
 
         private void SanityArchiveForm_Load(object sender, EventArgs e)
         {
-			pathTextBox.Text = @"C:\";
 			saveButton.Enabled = false;
 			cancelButton.Enabled = false;
 
-            previousSelectedItems[currentSelectedIndex] = pathTextBox.Text;
-            fileBrowser.SetDrivePath(pathTextBox.Text);
+            foreach (DriveInfo drive in availableDrives)
+            {
+                drivesBox.Items.Add(drive.Name);
+            }
+            drivesBox.SelectedIndex = 0;
+
+            pathTextBox.Text = drivesBox.SelectedItem.ToString();
+            fileBrowser.SetDrivePath(drivesBox.SelectedItem.ToString());
             AddItemsToList();
         }
 
@@ -93,7 +96,7 @@ namespace SanityArchive
 			{
 				try
 				{
-					fileHandler.CopyFilesTo(previousSelectedItems[currentSelectedIndex]);
+					fileHandler.CopyFilesTo(fileBrowser.GetDrivePath());
 				}
 				catch (DirectoryIsChosenException ex)
 				{
@@ -104,7 +107,7 @@ namespace SanityArchive
 			{
 				try
 				{
-					fileHandler.MoveFilesTo(previousSelectedItems[currentSelectedIndex]);
+					fileHandler.MoveFilesTo(fileBrowser.GetDrivePath());
 				}
 				catch (DirectoryIsChosenException ex)
 				{
@@ -140,43 +143,17 @@ namespace SanityArchive
             string selectedItem = contentListBox.SelectedItem != null ? contentListBox.SelectedItem.ToString() : "";
 			string filePath = pathTextBox.Text + "\\" + selectedItem;
 
-			if (Directory.Exists(selectedItem))
-            {
-                fileBrowser.SetDrivePath(selectedItem);
-                pathTextBox.Text = fileBrowser.GetDrivePath();
-
-                contentListBox.Items.Clear();
-                AddItemsToList();
-
-                currentSelectedIndex++;
-                previousSelectedItems[currentSelectedIndex] = selectedItem;
-            }
-
-			if (Path.GetExtension(filePath) == ".txt")
-			{
-				string[] lines = File.ReadAllLines(filePath);
-				StringBuilder sb = new StringBuilder();
-				foreach (string line in lines)
-				{
-					sb.Append("\n" + line);
-				}
-				string text = sb.ToString();
-				MessageBox.Show(text, "Content of selected '.txt' file:", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-		}
+            OpenFolder(selectedItem);
+            OpenFile(filePath);
+        }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            if (currentSelectedIndex > 0)
-            {
-                currentSelectedIndex--;
+            fileBrowser.SetDrivePath(GetPreviousPath());
+            pathTextBox.Text = fileBrowser.GetDrivePath();
 
-                fileBrowser.SetDrivePath(previousSelectedItems[currentSelectedIndex]);
-                pathTextBox.Text = fileBrowser.GetDrivePath();
-
-                contentListBox.Items.Clear();
-                AddItemsToList();
-            }
+            contentListBox.Items.Clear();
+            AddItemsToList();
         }
 
         private void AddItemsToList()
@@ -193,5 +170,65 @@ namespace SanityArchive
                 contentListBox.Items.Add(file.Name);
             }
         }
-	}
+
+        private string GetPreviousPath()
+        {
+            string previousPath = pathTextBox.Text;
+            int indexOfSeparator = pathTextBox.Text.LastIndexOf("\\");
+            int lengthOfPrevPath = pathTextBox.Text.Length - (pathTextBox.Text.Length - indexOfSeparator);
+
+            if (Directory.Exists(pathTextBox.Text) && indexOfSeparator != 2)
+            {
+                previousPath = pathTextBox.Text.Substring(0, lengthOfPrevPath);
+            }
+            else if (indexOfSeparator == 2)
+            {
+                previousPath = pathTextBox.Text.Substring(0, lengthOfPrevPath+1);
+            }
+            return previousPath;
+        }
+
+        private void OpenFolder(string selectedItem)
+        {
+            if (Directory.Exists(selectedItem))
+            {
+                fileBrowser.SetDrivePath(selectedItem);
+                pathTextBox.Text = fileBrowser.GetDrivePath();
+
+                contentListBox.Items.Clear();
+                AddItemsToList();
+            }
+        }
+
+        private void OpenFile(string filePath)
+        {
+            if (Path.GetExtension(filePath) == ".txt")
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                StringBuilder sb = new StringBuilder();
+                foreach (string line in lines)
+                {
+                    sb.Append("\n" + line);
+                }
+                string text = sb.ToString();
+                MessageBox.Show(text, "Content of selected '.txt' file:", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else if(Path.GetExtension(filePath) != ".txt" && Path.HasExtension(filePath))
+            {
+                MessageBox.Show("Only .txt files are supported!", "Incompatible file format!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+        }
+
+        private void drivesBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string drivePath = drivesBox.SelectedItem.ToString();
+            fileBrowser.SetDrivePath(drivePath);
+            pathTextBox.Text = drivePath;
+
+            contentListBox.Items.Clear();
+            AddItemsToList();
+        }
+    }
 }
