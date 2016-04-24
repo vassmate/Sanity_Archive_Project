@@ -34,17 +34,24 @@ namespace SanityArchive
                 drivesBox.Items.Add(drive.Name);
             }
             drivesBox.SelectedIndex = 0;
-
-            pathTextBox.Text = drivesBox.SelectedItem.ToString();
-            fileBrowser.SetDrivePath(drivesBox.SelectedItem.ToString());
-            AddItemsToList();
         }
 
 
         private void propertiesButton_Click(object sender, EventArgs e)
         {
-			PropertiesForm propertiesForm = new PropertiesForm();
-			propertiesForm.Show();
+            string selectedItem = contentListBox.SelectedItem != null ? contentListBox.SelectedItem.ToString() : "";
+            string filePath = pathTextBox.Text + "\\" + selectedItem;
+
+            PropertiesForm propertiesForm = new PropertiesForm();
+            if (Path.HasExtension(filePath))
+            {
+                propertiesForm.SetPropertiesPath(filePath);
+            }
+            else if(Directory.Exists(selectedItem))
+            {
+                propertiesForm.SetPropertiesPath(selectedItem);
+            }
+            propertiesForm.Show();
         }
 
 

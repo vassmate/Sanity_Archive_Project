@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace SanityArchive
 {
     public partial class PropertiesForm : Form
     {
-		string path;
-		//string path = @"C:\DEV\Interperszonális ütvefúrógép\Sainty Archive Test\sentences másolata másolata (6).txt";
+		private string path;
 
 		public PropertiesForm()
         {
             InitializeComponent();
+        }
+
+        public void SetPropertiesPath(string newPath)
+        {
+            path = newPath;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -79,10 +75,16 @@ namespace SanityArchive
 
         private void button6_Click(object sender, EventArgs e)
         {
-
-            FileAttributes attributes = File.GetAttributes(path);
-
-            MessageBox.Show(attributes.ToString());
+            try
+            {
+                FileAttributes attributes = File.GetAttributes(path);
+                MessageBox.Show(attributes.ToString());
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("File or directory is not accessible!\nException info: " + ex.Message, "Exception occured!", MessageBoxButtons.OK,
+                       MessageBoxIcon.Warning);
+            }
         }
     }
 }
