@@ -101,27 +101,16 @@ namespace SanityArchive
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
-			if (toCopy)
+			try
 			{
-				try
-				{
+				if (toCopy)
 					fileHandler.CopyFilesTo(fileBrowser.GetDrivePath());
-				}
-				catch (DirectoryIsChosenException ex)
-				{
-					MessageBox.Show(ex.ToString(), "Warning!");
-				}
-			}
-			else if (toMove)
-			{
-				try
-				{
+				else if (toMove)
 					fileHandler.MoveFilesTo(fileBrowser.GetDrivePath());
-				}
-				catch (DirectoryIsChosenException ex)
-				{
-					MessageBox.Show(ex.ToString(), "Warning!");
-				}
+			}
+			catch (DirectoryIsChosenException ex)
+			{
+				MessageBox.Show(ex.ToString(), "Warning!");
 			}
 
 			copyButton.Enabled = true;

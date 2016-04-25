@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Windows.Forms;
 
 namespace SanityArchive
 {
@@ -37,7 +38,22 @@ namespace SanityArchive
                 if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                     throw new DirectoryIsChosenException("You can not move directory");
                 FileInfo file = (FileInfo)item;
-                file.MoveTo(Path.Combine(destDir, file.Name));
+				if (File.Exists(Path.Combine(destDir, file.Name)))
+				{
+					DialogResult msg = MessageBox.Show("In this directory there is a file with same name:\n"
+										+ file.Name + "\nDo you want to override this file?", "Warning!",
+										MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+					if (msg == DialogResult.Yes)
+					{
+						File.Delete(Path.Combine(destDir, file.Name));
+						file.MoveTo(Path.Combine(destDir, file.Name));
+					}
+					else if (msg == DialogResult.No)
+						continue;
+					else if (msg == DialogResult.Cancel)
+						return;
+				}
+				file.MoveTo(Path.Combine(destDir, file.Name));
             }
         }
 
@@ -49,9 +65,24 @@ namespace SanityArchive
                 if ((item.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
                     throw new DirectoryIsChosenException("You can not copy directory");
                 FileInfo file = (FileInfo)item;
-                file.CopyTo(Path.Combine(destDir, file.Name));
-            }
-        }
+				if (File.Exists(Path.Combine(destDir, file.Name)))
+				{
+					DialogResult msg = MessageBox.Show("In this directory there is a file with same name:\n"
+										+file.Name+"\nDo you want to override this file?", "Warning!",
+										MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+					if (msg == DialogResult.Yes)
+					{
+						File.Delete(Path.Combine(destDir, file.Name));
+						file.CopyTo(Path.Combine(destDir, file.Name));
+					}
+					else if (msg == DialogResult.No)
+						continue;
+					else if (msg == DialogResult.Cancel)
+						return;
+				}
+				file.CopyTo(Path.Combine(destDir, file.Name));
+			}
+		}
 
 
         //static void Main(string[] args)
