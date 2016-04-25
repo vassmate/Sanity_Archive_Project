@@ -29,6 +29,8 @@ namespace SanityArchive
 			saveButton.Enabled = false;
 			cancelButton.Enabled = false;
 
+			sizeTextBox.Text = "0";
+
             foreach (DriveInfo drive in availableDrives)
             {
                 drivesBox.Items.Add(drive.Name);
@@ -237,5 +239,47 @@ namespace SanityArchive
             contentListBox.Items.Clear();
             AddItemsToList();
         }
-    }
+
+		private void calculateButton_Click(object sender, EventArgs e)
+		{
+			long size = 0;
+			FileInfo fileinfo;
+
+			if (contentListBox.SelectedItems == null)
+			{
+				MessageBox.Show("It is null!", "NULL");
+				return;
+			}
+
+			foreach (var item in contentListBox.SelectedItems)
+			{
+				fileinfo = new FileInfo(Path.Combine(fileBrowser.GetDrivePath(), item.ToString()));
+				if ((fileinfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+				{
+					MessageBox.Show("You can not select directory!", "Warning!");
+					sizeTextBox.Text = "0";
+					return;
+				}
+				size += fileinfo.Length;
+			}
+
+			if (size < 1024)
+				sizeTextBox.Text = size.ToString();
+			else if (size < 1024*1024)
+			{
+				sizeTextBox.Text = string.Format("{0:F2}", size/1024.0);
+				sizeUnitLabel.Text = "KB";
+			}
+			else if (size < 1024*1024*1024)
+			{
+				sizeTextBox.Text = string.Format("{0:F2}", size/(1024*1024.0));
+				sizeUnitLabel.Text = "MB";
+			}
+			else
+			{
+				sizeTextBox.Text = string.Format("{0:F2}", size/(1024*1024*1024.0));
+				sizeUnitLabel.Text = "GB";
+			}
+		}
+	}
 }
