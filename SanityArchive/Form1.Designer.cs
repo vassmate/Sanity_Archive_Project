@@ -55,7 +55,7 @@
             this.pathTextBox.Name = "pathTextBox";
             this.pathTextBox.ReadOnly = true;
             this.pathTextBox.Size = new System.Drawing.Size(312, 20);
-            this.pathTextBox.TabIndex = 2;
+            this.pathTextBox.TabIndex = 3;
             // 
             // pathLabel
             // 
@@ -63,7 +63,7 @@
             this.pathLabel.Location = new System.Drawing.Point(25, 50);
             this.pathLabel.Name = "pathLabel";
             this.pathLabel.Size = new System.Drawing.Size(32, 13);
-            this.pathLabel.TabIndex = 4;
+            this.pathLabel.TabIndex = 2;
             this.pathLabel.Text = "Path:";
             // 
             // backButton
@@ -71,7 +71,7 @@
             this.backButton.Location = new System.Drawing.Point(391, 45);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(60, 23);
-            this.backButton.TabIndex = 5;
+            this.backButton.TabIndex = 4;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
@@ -81,7 +81,7 @@
             this.calculateButton.Location = new System.Drawing.Point(721, 20);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(63, 23);
-            this.calculateButton.TabIndex = 6;
+            this.calculateButton.TabIndex = 8;
             this.calculateButton.Text = "Calculate";
             this.calculateButton.UseVisualStyleBackColor = true;
             this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
@@ -92,7 +92,7 @@
             this.sizeLabel.Location = new System.Drawing.Point(552, 26);
             this.sizeLabel.Name = "sizeLabel";
             this.sizeLabel.Size = new System.Drawing.Size(30, 13);
-            this.sizeLabel.TabIndex = 7;
+            this.sizeLabel.TabIndex = 5;
             this.sizeLabel.Text = "Size:";
             // 
             // sizeTextBox
@@ -101,7 +101,7 @@
             this.sizeTextBox.Name = "sizeTextBox";
             this.sizeTextBox.ReadOnly = true;
             this.sizeTextBox.Size = new System.Drawing.Size(68, 20);
-            this.sizeTextBox.TabIndex = 8;
+            this.sizeTextBox.TabIndex = 6;
             // 
             // contentListBox
             // 
@@ -113,7 +113,6 @@
             this.contentListBox.TabIndex = 9;
             this.contentListBox.SelectedIndexChanged += new System.EventHandler(this.contentListBox_SelectedIndexChanged);
             this.contentListBox.DoubleClick += new System.EventHandler(this.contentListBox_DoubleClick);
-       //     this.contentListBox.LostFocus+= new System.EventHandler(this.contentListBox_LostFocus);
             // 
             // copyButton
             // 
@@ -121,7 +120,7 @@
             this.copyButton.Location = new System.Drawing.Point(28, 352);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(75, 23);
-            this.copyButton.TabIndex = 10;
+            this.copyButton.TabIndex = 11;
             this.copyButton.Text = "Copy";
             this.copyButton.UseVisualStyleBackColor = false;
             this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
@@ -131,7 +130,7 @@
             this.moveButton.Location = new System.Drawing.Point(130, 352);
             this.moveButton.Name = "moveButton";
             this.moveButton.Size = new System.Drawing.Size(75, 23);
-            this.moveButton.TabIndex = 11;
+            this.moveButton.TabIndex = 12;
             this.moveButton.Text = "Move";
             this.moveButton.UseVisualStyleBackColor = true;
             this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
@@ -141,7 +140,7 @@
             this.saveButton.Location = new System.Drawing.Point(231, 352);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 12;
+            this.saveButton.TabIndex = 13;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -152,7 +151,7 @@
             this.encryptButton.Location = new System.Drawing.Point(515, 352);
             this.encryptButton.Name = "encryptButton";
             this.encryptButton.Size = new System.Drawing.Size(75, 23);
-            this.encryptButton.TabIndex = 13;
+            this.encryptButton.TabIndex = 16;
             this.encryptButton.Text = "Encrypt";
             this.encryptButton.UseVisualStyleBackColor = true;
             this.encryptButton.Click += new System.EventHandler(this.encryptButton_Click);
@@ -163,7 +162,7 @@
             this.compressButton.Location = new System.Drawing.Point(616, 352);
             this.compressButton.Name = "compressButton";
             this.compressButton.Size = new System.Drawing.Size(75, 23);
-            this.compressButton.TabIndex = 14;
+            this.compressButton.TabIndex = 17;
             this.compressButton.Text = "Compress";
             this.compressButton.UseVisualStyleBackColor = true;
             this.compressButton.Click += new System.EventHandler(this.compressButton_Click);
@@ -174,7 +173,7 @@
             this.fileHandlingLabel.Location = new System.Drawing.Point(25, 319);
             this.fileHandlingLabel.Name = "fileHandlingLabel";
             this.fileHandlingLabel.Size = new System.Drawing.Size(69, 13);
-            this.fileHandlingLabel.TabIndex = 15;
+            this.fileHandlingLabel.TabIndex = 10;
             this.fileHandlingLabel.Text = "File handling:";
             // 
             // fileModifyingStructurallyLabel
@@ -183,7 +182,7 @@
             this.fileModifyingStructurallyLabel.Location = new System.Drawing.Point(512, 319);
             this.fileModifyingStructurallyLabel.Name = "fileModifyingStructurallyLabel";
             this.fileModifyingStructurallyLabel.Size = new System.Drawing.Size(126, 13);
-            this.fileModifyingStructurallyLabel.TabIndex = 16;
+            this.fileModifyingStructurallyLabel.TabIndex = 15;
             this.fileModifyingStructurallyLabel.Text = "File modifying structurally:";
             // 
             // cancelButton
@@ -191,7 +190,7 @@
             this.cancelButton.Location = new System.Drawing.Point(331, 352);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 17;
+            this.cancelButton.TabIndex = 14;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -213,7 +212,7 @@
             this.driveLabel.Location = new System.Drawing.Point(25, 21);
             this.driveLabel.Name = "driveLabel";
             this.driveLabel.Size = new System.Drawing.Size(35, 13);
-            this.driveLabel.TabIndex = 19;
+            this.driveLabel.TabIndex = 0;
             this.driveLabel.Text = "Drive:";
             // 
             // drivesBox
@@ -222,7 +221,7 @@
             this.drivesBox.Location = new System.Drawing.Point(64, 18);
             this.drivesBox.Name = "drivesBox";
             this.drivesBox.Size = new System.Drawing.Size(312, 21);
-            this.drivesBox.TabIndex = 20;
+            this.drivesBox.TabIndex = 1;
             this.drivesBox.SelectedIndexChanged += new System.EventHandler(this.drivesBox_SelectedIndexChanged);
             // 
             // sizeUnitLabel
@@ -231,7 +230,7 @@
             this.sizeUnitLabel.Location = new System.Drawing.Point(660, 26);
             this.sizeUnitLabel.Name = "sizeUnitLabel";
             this.sizeUnitLabel.Size = new System.Drawing.Size(27, 13);
-            this.sizeUnitLabel.TabIndex = 21;
+            this.sizeUnitLabel.TabIndex = 7;
             this.sizeUnitLabel.Text = "byte";
             // 
             // SanityArchiveForm
