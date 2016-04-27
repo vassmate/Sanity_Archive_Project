@@ -152,6 +152,9 @@ namespace SanityArchive
 
             contentListBox.Items.Clear();
             AddItemsToList();
+            encryptButton.Enabled = false;
+            compressButton.Enabled = false;
+            propertiesButton.Enabled = false;
         }
 
         private void AddItemsToList()
@@ -270,5 +273,89 @@ namespace SanityArchive
 				sizeUnitLabel.Text = "GB";
 			}
 		}
-	}
+
+        private void encryptButton_Click(object sender, EventArgs e)
+        {
+            if (encryptButton.Text == "Encrypt")
+            {
+                string path=Path.Combine(fileBrowser.GetDrivePath(), contentListBox.SelectedItem.ToString());
+                EnDecrypter.encrypt(path);
+            }
+            else
+            {
+                string path = Path.Combine(fileBrowser.GetDrivePath(), contentListBox.SelectedItem.ToString());
+                EnDecrypter.decrypt(path);
+            }
+
+            pathTextBox.Text = fileBrowser.GetDrivePath();
+            contentListBox.Items.Clear();
+            AddItemsToList();
+        }
+
+        private void compressButton_Click(object sender, EventArgs e)
+        {
+            if(compressButton.Text=="Compress")
+            {
+                string path = Path.Combine(fileBrowser.GetDrivePath(), contentListBox.SelectedItem.ToString());
+                DeCompressor.Compress(path);
+            }
+            else
+            {
+                string path = Path.Combine(fileBrowser.GetDrivePath(), contentListBox.SelectedItem.ToString());
+                DeCompressor.Decompress(path);
+            }
+
+            pathTextBox.Text = fileBrowser.GetDrivePath();
+            contentListBox.Items.Clear();
+            AddItemsToList();
+        }
+
+        private void contentListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (contentListBox.SelectedItems.Count == 1)
+            {
+                encryptButton.Enabled = true;
+                compressButton.Enabled = true;
+                propertiesButton.Enabled = true;                
+                FileInfo fileinfo = new FileInfo(Path.Combine(fileBrowser.GetDrivePath(), contentListBox.SelectedItem.ToString()));
+                if ((fileinfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                {
+                    encryptButton.Enabled = false;
+                    compressButton.Enabled = false;
+                    propertiesButton.Enabled = false;
+                }
+                else {
+                    if (fileinfo.Extension == ".cry")
+                        encryptButton.Text = "Decrypt";
+                    if (fileinfo.Extension == ".gz")
+                        compressButton.Text = "Decompress";
+                    if(fileinfo.Extension!=".cry")
+                        encryptButton.Text = "Encrypt";
+                    if (fileinfo.Extension != ".gz")
+                        compressButton.Text = "Compress";
+                }                           
+            }
+
+           else
+            {
+                encryptButton.Enabled = false;
+                compressButton.Enabled = false;
+                propertiesButton.Enabled = false;
+            }
+        }
+
+    /*    private void contentListBox_LostFocus(object sender, EventArgs e)
+        {
+            var indexes = contentListBox.SelectedIndices;
+            int selectedIndex = 0;
+            foreach (int number in indexes)
+            {
+                selectedIndex = number;
+            }
+            contentListBox.SetSelected(selectedIndex, false);
+            encryptButton.Enabled = false;
+            compressButton.Enabled = false;
+            propertiesButton.Enabled = false;
+        }*/
+    }
 }
