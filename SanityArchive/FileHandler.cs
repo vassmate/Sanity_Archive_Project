@@ -53,7 +53,6 @@ namespace SanityArchive
 					else if (msg == DialogResult.Cancel)
 						return;
 				}
-				file.MoveTo(Path.Combine(destDir, file.Name));
             }
         }
 
@@ -80,7 +79,6 @@ namespace SanityArchive
 					else if (msg == DialogResult.Cancel)
 						return;
 				}
-				file.CopyTo(Path.Combine(destDir, file.Name));
 			}
 		}
 
